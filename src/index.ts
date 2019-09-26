@@ -21,3 +21,5 @@
 export * from "./api/Files";
 export * from "./api/doc/ITodo";
 export * from "./api/Typicode";
+export * from "./api/doc/IIssue";
+export * from "./api/GitHub";
