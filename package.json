@@ -21,17 +21,9 @@
     "lib"
   ],
   "scripts": {
-    "build": "node scripts/updateLicense.js && tsc --pretty && npm run checkTestsCompile",
-    "checkTestsCompile": "echo \"Checking that test source compiles...\" && tsc --project __tests__/test-tsconfig.json --noEmit ",
-    "prebuild": "npm run clean && npm run lint && echo Using TypeScript && tsc --version",
+    "build": "node ./build.js",
     "clean": "rimraf lib",
-    "watch": "tsc --pretty --watch",
-    "prepublishOnly": "npm run build",
-    "lint": "tslint \"src/**/*.ts\"",
-    "test": "npm run test:unit && npm run test:integration && npm run test:system",
-    "test:system": "env-cmd __tests__/__resources__/env/system.env jest .*/__system__/.* --coverage false",
-    "test:integration": "env-cmd __tests__/__resources__/env/integration.env jest .*/__integration__/.* --coverage false",
-    "test:unit": "env-cmd __tests__/__resources__/env/unit.env jest --coverage --testPathIgnorePatterns \".*/__system__|__integration__/.*\"",
+    "watch": "chokidar \"src/**/*.djs\" -c \"npm run build\"",
     "installPlugin": "npm install && npm run clean && npm run build && zowe plugins install ."
   },
   "imperative": {
@@ -47,7 +39,10 @@
     "@types/node": "^8.0.0",
     "@types/yargs": "8.0.2",
     "@zowe/cli": "^6.1.0",
+    "chokidar-cli": "^2.1.0",
+    "dogescript": "github:dogescript/dogescript#master",
     "env-cmd": "^8.0.2",
+    "fast-glob": "^3.1.0",
     "fs-extra": "^5.0.0",
     "jest": "^24.3.1",
     "jest-cli": "^24.3.1",
@@ -113,5 +108,8 @@
     "includeFailureMsg": true
   },
   "author": "Darkside",
-  "license": "EPL-2.0"
+  "license": "EPL-2.0",
+  "dependencies": {
+    "typescript-awaiter": "^1.0.0"
+  }
 }
